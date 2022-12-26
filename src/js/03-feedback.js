@@ -3,16 +3,16 @@ const form = document.querySelector('.feedback-form');
 form.addEventListener('input', throttle(onFormData, 500));
 form.addEventListener('submit', onSubmitForm);
 
-const formData = {};
+let persistedData = {};
 const LOCALSTOREGE_KEY = 'feedback-form-state';
 
 dataFromLocalStorage()
 
 function onFormData(evt) {
-  let persistedData = localStorage.getItem(LOCALSTOREGE_KEY);
+  persistedData = localStorage.getItem(LOCALSTOREGE_KEY);
   persistedData = persistedData? JSON.parse(persistedData) : {};
-  formData[evt.target.name] = evt.target.value;
-  localStorage.setItem('feedback-form-state', JSON.stringify(formData));
+  persistedData[evt.target.name] = evt.target.value;
+  localStorage.setItem('feedback-form-state', JSON.stringify(persistedData));
 }
 
 function onSubmitForm(evt) {
